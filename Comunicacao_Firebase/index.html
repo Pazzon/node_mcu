@@ -1,0 +1,66 @@
+  <!-- Codigo HTML -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LDR</title>
+    <style>
+      body{
+        background-color: #f0f0f0;
+      }
+</style>
+  </head>
+
+  <body>
+	<h>\n Valor da tesao recebida pelo fareBase ...!</h1>
+    <center>
+    <h1><span id="valorLDR"></span></span></h1>
+  </body>
+  </center>
+
+
+<!-- Scripts JS -->
+
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+  <script type="text/javascript">
+  (function(){
+
+  var config = {
+    apiKey: "AIzaSyBs6yN4mXuAekzV5vn0WZGrK_f9Kdv5pAM",
+    authDomain: "nodemcu-23ab2.firebaseapp.com",
+    databaseURL: "https://nodemcu-23ab2.firebaseio.com",
+    projectId: "nodemcu-23ab2",
+    storageBucket: "nodemcu-23ab2.appspot.com",
+    messagingSenderId: "503103703417",
+    appId: "1:503103703417:web:cb1248b2be61a670a007a8"
+  };
+  firebase.initializeApp(config);
+  var db = firebase.database();
+
+  var LDR = db.ref('LDR');
+
+
+  LDR.on('value', onNewData('valorLDR'));
+
+  })();
+
+  function onNewData(currentValueEl, metric){
+  return function(snapshot){
+    var readings = snapshot.val();
+    if(readings){
+        var currentValue;
+        var data = [];
+        for(var key in readings){
+          currentValue = readings[key]
+          data.push(currentValue);
+        }
+
+        document.getElementById(currentValueEl).innerText = currentValue + 'V';
+      }
+    }
+  }
+  ('value', function(snapshot){   
+  });
+</script>
+</html>
